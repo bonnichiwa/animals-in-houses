@@ -7,7 +7,6 @@ var House = function() {
   this.animals = [];
 }
 
-
 /**
  * When the door opens, all animals in the house will call for food
  *
@@ -18,7 +17,6 @@ House.prototype.openDoor = function() {
     this.animals[i].callForFood();    
   }
 }
-
 
 /**
  * Only animals can we adopted
@@ -35,7 +33,6 @@ House.prototype.adoptAnAnimal = function(animal) {
   }
 }
 
-
 /**
  * Define the Animal Object
  *
@@ -46,10 +43,17 @@ var Animal = function(name) {
   this.name = name;
   this.callForFood = function() {
     console.log(this.name + " is calling for food");
-    console.log(this.greeting);
   }
 }
 
+/**
+ * The Animal can call for food
+ *
+ * no @returns
+ */
+Animal.prototype.callForFood = function() {
+  console.log(this.name + " is calling for food!");
+}
 
 /**
  * Define the Cat Object
@@ -58,14 +62,20 @@ var Animal = function(name) {
  * no @returns
  */
 var Cat = function(name) {
-    Animal.call(this, name);
-    this.name = name;
-    this.greeting = 'meow meow';
+  this.name = name;
 }
 
 Cat.prototype = Object.create(Animal.prototype);
 Cat.prototype.constructor = Cat;
 
+/**
+ * Add additional action to Cat's callForFood function
+ *
+ * @returns {String}
+ */
+Cat.prototype.callForFood = function() {
+   return Animal.prototype.callForFood.call(this) + console.log("Meow meow");
+}
 
 /**
  * Define the Dog Object
@@ -74,10 +84,17 @@ Cat.prototype.constructor = Cat;
  * no @returns
  */
 var Dog = function(name) {
-  Animal.call(this, name);
   this.name = name;
-  this.greeting = 'ruff ruff';
 }
 
 Dog.prototype = Object.create(Animal.prototype);
 Dog.prototype.constructor = Dog;
+
+/**
+ * Add additional action to Dog's callForFood function
+ *
+ * @returns {String}
+ */
+Dog.prototype.callForFood = function() {
+  return Animal.prototype.callForFood.call(this) + console.log("Ruff ruff");
+}
