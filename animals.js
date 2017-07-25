@@ -41,9 +41,6 @@ House.prototype.adoptAnAnimal = function(animal) {
  */
 var Animal = function(name) {
   this.name = name;
-  this.callForFood = function() {
-    console.log(this.name + " is calling for food");
-  }
 }
 
 /**
@@ -62,7 +59,7 @@ Animal.prototype.callForFood = function() {
  * no @returns
  */
 var Cat = function(name) {
-  this.name = name;
+  Animal.call(this, name);
 }
 
 Cat.prototype = Object.create(Animal.prototype);
@@ -71,10 +68,11 @@ Cat.prototype.constructor = Cat;
 /**
  * Add additional action to Cat's callForFood function
  *
- * @returns {String}
+ * no @returns
  */
 Cat.prototype.callForFood = function() {
-   return Animal.prototype.callForFood.call(this) + console.log("Meow meow");
+   Animal.prototype.callForFood.call(this);
+   console.log("Meow meow");
 }
 
 /**
@@ -84,7 +82,7 @@ Cat.prototype.callForFood = function() {
  * no @returns
  */
 var Dog = function(name) {
-  this.name = name;
+  Animal.call(this, name);
 }
 
 Dog.prototype = Object.create(Animal.prototype);
@@ -93,8 +91,9 @@ Dog.prototype.constructor = Dog;
 /**
  * Add additional action to Dog's callForFood function
  *
- * @returns {String}
+ * no @returns
  */
 Dog.prototype.callForFood = function() {
-  return Animal.prototype.callForFood.call(this) + console.log("Ruff ruff");
+  Animal.prototype.callForFood.call(this);
+  console.log("Ruff ruff");
 }
